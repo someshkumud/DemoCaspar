@@ -1,13 +1,15 @@
-package Pages;
+package pages;
 
-import Util.BaseUtil;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import util.BaseUtil;
 
-import static Util.DriverSetup.driver;
+import static util.DriverSetup.driver;
 
 public class Dashboard extends BaseUtil {
 
@@ -78,6 +80,12 @@ public class Dashboard extends BaseUtil {
     @FindBy(how = How.XPATH, using = "//button[@type='submit']")
     private WebElement buttonSave;
 
+    @FindBy(how = How.XPATH, using = "//span[@class='ng-star-inserted']")
+    private WebElement linkMenuLogout;
+
+    @FindBy(how = How.XPATH, using = "//button[@class='mat-menu-item ng-star-inserted']")
+    private WebElement linkLogout;
+
 
     public void addPatient() {
         clickOn(buttonAddPatient);
@@ -85,14 +93,29 @@ public class Dashboard extends BaseUtil {
         enterTherapyDetails();
         enterContactInformation();
         clickOn(buttonSave);
-        Wait(10);
+    }
+
+    public void getCredentials() {
+        String tempUserNname = driver.findElement(By.xpath("//mat-dialog-container[@id='mat-dialog-0']//div[contains(@class, 'd-flex')]/div[3]/div[2]")).getText();
+        String tempPassword = driver.findElement(By.xpath("//mat-dialog-container[@id='mat-dialog-0']//div[contains(@class, 'd-flex')]/div[4]/div[2]")).getText();
+        sys_default_prop.put("userName", tempUserNname);
+        sys_default_prop.put("password", tempPassword);
+        System.out.println(tempUserNname);
+        System.out.println(tempPassword);
+        driver.findElement(By.xpath("//button[@aria-label='Close dialog']")).click();
+    }
+
+
+    public void logOut() {
+        clickOn(linkMenuLogout);
+        clickOn(linkLogout);
     }
 
     private void enterPersonalInformation() {
         enterValueInTextBox(txtFirstName, sys_default_prop.get("firstName"));
         enterValueInTextBox(txtLastName, sys_default_prop.get("lastName"));
         selectDoB();
-        selectDropdownByVisibleText(selectGender,sys_default_prop.get("gender"));
+        selectDropdownByVisibleText(selectGender, sys_default_prop.get("gender"));
         enterValueInTextBox(txtHeight, sys_default_prop.get("height"));
         enterValueInTextBox(txtWeight, sys_default_prop.get("weight"));
         enterValueInTextBox(txtBMI, sys_default_prop.get("bmi"));
@@ -113,9 +136,8 @@ public class Dashboard extends BaseUtil {
         enterValueInTextBox(txtZip, sys_default_prop.get("zip"));
         enterValueInTextBox(txtCity, sys_default_prop.get("city"));
         txtCity.sendKeys(Keys.PAGE_DOWN);
-        Wait(5);
+        Wait(1);
         selectDropdownByVisibleText(selectCountry, sys_default_prop.get("country"));
-        Wait(5);
     }
 
     private void selectDoB() {
@@ -124,7 +146,7 @@ public class Dashboard extends BaseUtil {
         String mm = arDate[1];
         int yyyy = Integer.parseInt(arDate[2]);
         selectDropdownByVisibleText(selectDOBDateArrow, String.valueOf(dd));
-        selectDropdownByVisibleText(selectDOBMonthArrow,mm);
+        selectDropdownByVisibleText(selectDOBMonthArrow, mm);
         selectDropdownByVisibleText(selectDOBYearArrow, String.valueOf(yyyy));
     }
 }

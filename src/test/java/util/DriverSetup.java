@@ -1,11 +1,11 @@
-package Util;
+package util;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-import static Util.BaseUtil.sys_default_prop;
+import static util.BaseUtil.sys_default_prop;
 
 public class DriverSetup {
     public static final String CHROME_DRIVER_PROPERTY = "webdriver.chrome.driver";

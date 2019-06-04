@@ -1,17 +1,18 @@
-package Util;
+package util;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import static Util.BaseUtil.sys_default_prop;
-import static Util.DriverSetup.*;
+
+import static util.BaseUtil.load_default_props;
+import static util.DriverSetup.*;
 
 public class Hook {
 
 
     @Before
     public void InitializeTest() {
-
+        load_default_props();
         System.out.println("Opening the browser");
 
     }
@@ -24,6 +25,6 @@ public class Hook {
             System.out.println(scenario.getName());
         }
         System.out.println("Closing the browser : MOCK");
-        closeDriver();
+//        closeDriver();
     }
 }

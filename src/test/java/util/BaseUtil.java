@@ -1,8 +1,7 @@
-package Util;
+package util;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
 
-import static Util.DriverSetup.driver;
+import static util.DriverSetup.driver;
 
 /**
  * Created to operate on properties file

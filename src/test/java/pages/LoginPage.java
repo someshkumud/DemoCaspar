@@ -1,6 +1,6 @@
-package Pages;
+package pages;
 
-import Util.BaseUtil;
+import util.BaseUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,21 +14,20 @@ public class LoginPage extends BaseUtil {
     }
 
 
-    @FindBy(how = How.XPATH, using = "//input[@id='mat-input-0']")
+    @FindBy(how = How.XPATH, using = "//input[@formcontrolname='login']")
     private WebElement txtLoginEmailOrCasparID;
 
-    @FindBy(how = How.XPATH, using = "//input[@id='mat-input-1']")
+    @FindBy(how = How.XPATH, using = "//input[@formcontrolname='password']")
     private WebElement txtPassword;
 
-    @FindBy(how = How.XPATH, using = "//button[@color='primary']")
+    @FindBy(how = How.XPATH, using = "//span[text()='Login']")
     private WebElement btnLogin;
 
 
     public void loginToCasper() {
         enterValueInTextBox(txtLoginEmailOrCasparID, sys_default_prop.get("userName"));
         enterValueInTextBox(txtPassword, sys_default_prop.get("password"));
+        Wait(5);
         clickOn(btnLogin);
     }
-
-
 }

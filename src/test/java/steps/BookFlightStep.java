@@ -1,11 +1,10 @@
-package Steps;
+package steps;
 
-import Util.BaseUtil;
-import Pages.Dashboard;
-import cucumber.api.PendingException;
+import util.BaseUtil;
+import pages.Dashboard;
 import cucumber.api.java.en.And;
 
-import static Util.DriverSetup.driver;
+import static util.DriverSetup.driver;
 
 public class BookFlightStep extends BaseUtil{
 

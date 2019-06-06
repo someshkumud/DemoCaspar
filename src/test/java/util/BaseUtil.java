@@ -9,12 +9,14 @@ package util;
  * @since 06/06/2019
  */
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -107,7 +109,6 @@ public class BaseUtil {
         clickOn(webElement);
         driver.findElement(By.xpath("//span[text()='" + value + "']")).click();
     }
-
 
 }
 

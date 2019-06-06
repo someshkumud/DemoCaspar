@@ -6,6 +6,8 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import pages.ConsentPage;
 import pages.Dashboard;
 import pages.LoginPage;
@@ -34,8 +36,15 @@ public class QATaskSteps extends BaseUtil {
     @After
     public void TearDownTest(Scenario scenario) {
         if (scenario.isFailed()) {
-            //Take screenshot logic goes here
-            System.out.println(scenario.getName());
+            System.out.println("SCENARIO FAILED : " + scenario.getName());
+            try {
+                final byte[] screenShot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+                scenario.embed(screenShot, "image/png");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("SCENARIO PASSED : " + scenario.getName());
         }
         System.out.println("Closing the browser : MOCK");
         closeDriver();

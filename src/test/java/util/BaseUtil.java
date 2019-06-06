@@ -1,5 +1,14 @@
 package util;
 
+/**
+ * This class is created to define utility/supporting functions
+ * Bugs: NA
+ *
+ * @author Somesh Kumud
+ * @version 1.0
+ * @since 06/06/2019
+ */
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -11,57 +20,39 @@ import java.util.Properties;
 
 import static util.DriverSetup.driver;
 
-/**
- * Created to operate on properties file
- */
 public class BaseUtil {
-//    public static WebDriver driver;
-    public static HashMap<String, String> sys_default_prop = new HashMap<String, String>();
 
-    public static void load_default_props() {
-        Properties load_props = new Properties();
-        get_default_props(load_props, sys_default_prop);
-        process_properties(load_props, sys_default_prop);
+    public static HashMap<String, String> defaultProperties = new HashMap<String, String>();
+
+    /**
+     * loadDefaultProperties method will load properties from default.properties file into hash map
+     */
+    public static void loadDefaultProperties() {
+        Properties properties = new Properties();
+        readDefaultProperties(properties);
+        processProperties(properties, defaultProperties);
 
     }
 
-    private static void process_properties(Properties load_props, HashMap<String, String> default_prop) {
-        default_prop.put("browser", load_props.getProperty("browser"));
-        default_prop.put("implicitWait", load_props.getProperty("implicitWait"));
-        default_prop.put("url", load_props.getProperty("url"));
-
-//        *****************Login
-        default_prop.put("userName", load_props.getProperty("userName"));
-        default_prop.put("password", load_props.getProperty("password"));
-
-//        ******************Add Patient
-        default_prop.put("firstName", load_props.getProperty("firstName"));
-        default_prop.put("lastName", load_props.getProperty("lastName"));
-        default_prop.put("dateOfBirth", load_props.getProperty("dateOfBirth"));
-        default_prop.put("gender", load_props.getProperty("gender"));
-        default_prop.put("height", load_props.getProperty("height"));
-        default_prop.put("weight", load_props.getProperty("weight"));
-        default_prop.put("bmi", load_props.getProperty("bmi"));
-        default_prop.put("therapyGoal", load_props.getProperty("therapyGoal"));
-        default_prop.put("therapistRecommendations", load_props.getProperty("therapistRecommendations"));
-        default_prop.put("other", load_props.getProperty("other"));
-        default_prop.put("email", load_props.getProperty("email"));
-        default_prop.put("primaryPhoneNumber", load_props.getProperty("primaryPhoneNumber"));
-        default_prop.put("street", load_props.getProperty("street"));
-        default_prop.put("streetNumber", load_props.getProperty("streetNumber"));
-        default_prop.put("zip", load_props.getProperty("zip"));
-        default_prop.put("city", load_props.getProperty("city"));
-        default_prop.put("country", load_props.getProperty("country"));
+    /**
+     * processProperties method created to support loadDefaultProperties, this will read properties from properties object and put into hash map
+     */
+    private static void processProperties(Properties properties, HashMap<String, String> default_properties) {
+        for (String key : properties.stringPropertyNames()) {
+            String value = properties.getProperty(key);
+            default_properties.put(key, value);
+        }
     }
 
-
-    public static void get_default_props(Properties load_props, HashMap<String, String> sys_default_prop) {
+    /**
+     * readDefaultProperties method created to support loadDefaultProperties, this will read properties from default.properties file and put into properties object
+     */
+    public static void readDefaultProperties(Properties properties) {
         FileInputStream input = null;
         try {
             File file = new File(System.getProperty("user.dir") + "\\src\\test\\java\\config\\default.properties");
             input = new FileInputStream(file);
-            load_props.load(input);
-            //load_props.load(BaseUtil.class.getResourceAsStream("default.properties"));
+            properties.load(input);
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
@@ -77,26 +68,44 @@ public class BaseUtil {
         }
     }
 
-    public void Wait(int timeInSec){
+
+    /**
+     * Wait method will allow wait till specified time (in seconds)
+     */
+    public static void Wait(int timeInSec) {
         try {
-            Thread.sleep(timeInSec*1000);
+            Thread.sleep(timeInSec * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * enterValueInTextBox method will enter Value In TextBox
+     *
+     * @param webElement object of text box
+     */
     public void enterValueInTextBox(WebElement webElement, String value) {
         webElement.sendKeys(value);
     }
 
-
+    /**
+     * clickOn method will click on links/button
+     *
+     * @param webElement object of link/button
+     */
     public void clickOn(WebElement webElement) {
         webElement.click();
     }
 
-    public void selectDropdownByVisibleText(WebElement webElement, String value){
+    /**
+     * selectDropdownByVisibleText method will select Dropdown value By Visible Text
+     *
+     * @param webElement object of dropdown
+     */
+    public void selectDropdownByVisibleText(WebElement webElement, String value) {
         clickOn(webElement);
-        driver.findElement(By.xpath("//span[text()='"+value+"']")).click();
+        driver.findElement(By.xpath("//span[text()='" + value + "']")).click();
     }
 
 

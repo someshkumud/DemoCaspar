@@ -1,8 +1,7 @@
-Feature: LoginFeature
-#  This feature deals with the login functionality of the application
+Feature: QA Task Feature
+#  This feature deals with the assigned QA Task on the Caspar application
 
-  Scenario: Login with correct username and password
-#    Given default properties loded into hashmap
+  Scenario: Perform QA Task as instructed
     Given Launch browser and navigate to Caspar
     And user log into Casper
     And user adds a Patient and set credentials in default properties

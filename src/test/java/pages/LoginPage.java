@@ -45,6 +45,7 @@ public class LoginPage extends BaseUtil {
     public void loginToCasper() {
         enterValueInTextBox(txtLoginEmailOrCasparID, defaultProperties.get("userName"));
         enterValueInTextBox(txtPassword, defaultProperties.get("password"));
+        Wait(1);
         clickOn(btnLogin);
     }
 }
